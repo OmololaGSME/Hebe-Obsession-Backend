@@ -7,7 +7,7 @@ const emailSender = async(from: string, to: string, subject: string, html: strin
             port: Number(process.env.EMAIL_PORT),
             auth: {
               user: process.env.EMAIL_USER,
-              pass: process.env.PASS
+              pass: process.env.EMAIL_PASS
             }
           });
           const mailOptions = {
