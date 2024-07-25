@@ -1,6 +1,7 @@
 import jwt, { VerifyErrors, JwtPayload } from 'jsonwebtoken';
 import { Request, Response, NextFunction } from 'express';
 
+// ADMIN AUTH
 const adminAuth = (req:Request, res:Response, next: NextFunction)=> {
     const token: string = req.cookies.jwt;
     if(token) {
@@ -17,4 +18,4 @@ const adminAuth = (req:Request, res:Response, next: NextFunction)=> {
     }
 }
 
-export default adminAuth;
+export default adminAuth ;

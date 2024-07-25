@@ -12,7 +12,9 @@
   "license": "ISC",
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
+    "@types/nodemailer": "^6.4.15",
     "cookie-parser": "^1.4.6",
+    "nodemailer": "^6.9.14",
     "nodemon": "^3.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.3"
