@@ -16,7 +16,7 @@ export const access = async(req:Request, res:Response, next:NextFunction)=> {
             if(isMatch) {
                 const token = genToken(checkMail._id);
                 res.cookie('jwt', token, {httpOnly: true, maxAge: EXPIRES});
-                return res.status(200).json({ message: 'Success', data: checkMail._id });
+                return res.status(200).json({ message: 'Successful Login', data: checkMail._id });
             }
             throw new Error('Incorrect Password')
         }
@@ -45,12 +45,31 @@ export const lostPassword = async(req:Request, res:Response, next:NextFunction)=
             subject: 'Reset Password',
             html: `<h2>Please Click on the link below for password reset. This link expires after 5 minutes <br> <a href="http://localhost:8500/api/admin/reset-password/${ findMail._id }">${ token }</a></h2>`
         }
-        await emailSender(mailOptions.from, mailOptions.to, mailOptions.subject, mailOptions.html);
+        await emailSender(mailOptions);
         res.status(200).json({ message: 'Email sent' });
     } catch (err) {
         if(err instanceof Error) {
             console.log(err.message);
             res.status(404).json({ error: err.message })
+        }
+    }
+}
+
+export const recoverPassword = async(req:Request, res:Response, next:NextFunction)=> {
+    const { id } = req.params;
+    const { password } = req.body;
+    const { jwt } = req.cookies
+    try {
+        const encryptPassword = await bcrypt.hash(password, 12);
+        if(jwt) {
+            const updatePassword = await Admin.findByIdAndUpdate(id, { password: encryptPassword }, { new: true });
+            return res.status(200).json({ message: 'Password updated' });
+        }
+        throw new Error('Expired token');
+    } catch (err) {
+        if(err instanceof Error) {
+            console.log(err.message);
+            res.status(403).json({ error: err.message })
         }
     }
 }

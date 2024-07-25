@@ -18,19 +18,4 @@ const adminAuth = (req:Request, res:Response, next: NextFunction)=> {
     }
 }
 
-// RESET AUTH
-const resetAuth = (req:Request, res:Response, next: NextFunction)=> {
-    const token = req.cookies.jwt;
-    if(token) {
-        jwt.verify(token, process.env.JWT_RESET!, (err:VerifyErrors | null, decoded?: object | string)=> {
-            if(err) {
-                res.status(401).json({ error: 'Invalid token' });
-            } else {
-                console.log(decoded);
-            }
-        });
-    } else {
-        res.status(401).json({ error: 'No token, authorization denied' });
-    }
-}
-export { adminAuth, resetAuth };
+export default adminAuth ;
