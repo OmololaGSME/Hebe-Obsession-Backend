@@ -20,3 +20,14 @@ export const uploadPhoto = async(req:Request, res:Response, next:NextFunction)=>
         }
     }
 }
+
+export const allPhotos = async(req:Request, res:Response, next:NextFunction)=> {
+    try {
+        const getPhotos = await Pic.find();
+        res.status(200).json({ data: getPhotos });
+    } catch (err) {
+        if(err instanceof Error) {
+            res.status(500).json({ error: err.message });
+        }
+    }
+}
