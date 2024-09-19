@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "node build/server.js",
+    "start": "ts-node src/server.ts",
     "dev": "nodemon --exec node --loader ts-node/esm src/server.ts"
   },
   "author": "Obed",
