@@ -6,6 +6,7 @@ import cookieParser from 'cookie-parser';
 import imageErrorHandler from './middleware/imageError';
 import adminRoute from './routes/admin';
 import galleryRoute from './routes/gallery';
+import healthRoute from './routes/health';
 
 //EXPRESS MIDDLEWARES
 app.use(express.json());
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_KEY));
 
 // ROUTES MIDDELWARE
+app.use('/health-check', healthRoute);
 app.use('/api/admin', adminRoute);
 app.use('/api/gallery', galleryRoute)
 // ERROR MIDDLEWARE
